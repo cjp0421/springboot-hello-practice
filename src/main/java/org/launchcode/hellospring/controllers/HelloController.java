@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 //the annotation is required for it to work
 
 @Controller
+@ResponseBody//returns a plain html text response
+@RequestMapping("hello")//this makes it clear that every single request mapping path should begin with /hello
 public class HelloController {
 //controller handler method
     //the first 3 methods are static (including the commented out one
@@ -24,9 +26,10 @@ public class HelloController {
 //    public String hello(){
 //        return "Hello, Spring!";
 //    }
-
+// because of the Request mapping annotation at the top,
+    //this lives at /hello/goodbye
     @GetMapping("goodbye") //this method only returns a http get method
-    @ResponseBody //returns a plain html text response
+
     public String goodbye(){
         return "Goodbye, Spring!";
     }
@@ -35,8 +38,10 @@ public class HelloController {
     //in other words, it takes a query parameter called name with a given value - LaunchCode - and that value should be used in the response
 // this is a dynamic handler - that means it accepts data
     //the query parameter name and the method parameter name must match up
+// because of the Request mapping annotation at the top,
+    //this lives at /hello/hello
     @RequestMapping(method = {RequestMethod.GET,RequestMethod.POST}, value = "hello")
-    @ResponseBody
+
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
@@ -48,9 +53,10 @@ public class HelloController {
 //    public String helloWithPathParam(@PathVariable String name){
 //        return name;
 //    }
-
+// because of the Request mapping annotation at the top,
+    //this lives at /hello/form
     @GetMapping("form")
-    @ResponseBody
+
     public String helloForm(){
         return "<html>" +
                 "<body>" +
