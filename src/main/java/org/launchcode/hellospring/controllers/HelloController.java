@@ -1,10 +1,7 @@
 package org.launchcode.hellospring.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 //a controller annotation tells spring boot that this class is a web controller
 // - in other words, it tells spring boot that there are methods in this class that are set up to handle http requests
@@ -38,7 +35,7 @@ public class HelloController {
     //in other words, it takes a query parameter called name with a given value - LaunchCode - and that value should be used in the response
 // this is a dynamic handler - that means it accepts data
     //the query parameter name and the method parameter name must match up
-    @GetMapping("hello")
+    @RequestMapping(method = {RequestMethod.GET,RequestMethod.POST}, value = "hello")
     @ResponseBody
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
@@ -57,7 +54,7 @@ public class HelloController {
     public String helloForm(){
         return "<html>" +
                 "<body>" +
-                "<form action='hello'>" +//tells the form to submit the request to /hello
+                "<form action='hello' method='post'>" +//tells the form to submit the request to /hello
                 "<input type='text' name='name'>" +
                 "<input type='submit' value='Greet me!'" +
                 "</form>" +
