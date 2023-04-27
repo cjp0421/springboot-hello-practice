@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@ResponseBody
 @RequestMapping("hello")
 public class HelloController {
 
@@ -21,7 +20,6 @@ public class HelloController {
 
 
     @RequestMapping(value="hello",method = RequestMethod.POST)
-    @ResponseBody
     public String helloPost(@RequestParam String name, @RequestParam String language){
         if (name == null){
             name = "World";
@@ -30,7 +28,7 @@ public class HelloController {
     }
 
     @RequestMapping(value="message",method = RequestMethod.POST)
-    @ResponseBody
+
     public static String createMessage(@RequestParam String n, @RequestParam String l){
         String greeting = "";
         if(l.equals("english")) {
@@ -47,24 +45,10 @@ public class HelloController {
         return greeting + " " + n;
     }
 
+    //Springboot assumes the string returned as such in the method below is a template
+    //if @ResponseBody isn't there but a string is.
     @GetMapping("form")
-    @ResponseBody
     public String helloForm(){
-        return "<html>" +
-                "<body>" +
-                "<form action='hello' method='post'>" +//tells the form to submit the request to /hello
-                "<input type='text' name='name'>" +
-                "<select name='language' id='language'>" +
-
-                "<option value='french'>French</option>" +
-                "<option value='german'>German</option>" +
-                "<option value='spanish'>Spanish</option>" +
-                "<option value='italian'>Italian</option>" +
-                "<option value='english'>English</option>" +
-                "</select>" +
-                "<input type='submit' value='Greet me!'>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
+        return "form";
     }
 }
